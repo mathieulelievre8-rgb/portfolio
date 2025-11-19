@@ -1,10 +1,5 @@
 {
   "version": 2,
-  "functions": {
-    "api/contact.py": {
-      "runtime": "python3.9"
-    }
-  },
   "routes": [
     { "src": "/api/contact", "dest": "/api/contact.py" }
   ]

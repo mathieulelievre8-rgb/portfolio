@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathieu Lelièvre | Portfolio Automation & Web</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">Mathieu Lelièvre</a>
+            <ul class="nav-links">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#apropos">À propos</a></li>
+                <li><a href="#competences">Compétences</a></li>
+                <li><a href="#projets">Projets</a></li>
+                <li><a href="#contact" class="btn-contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header id="accueil" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <p class="greeting">Salut, je suis Mathieu !</p>
+                <h1>Développeur Automation & Passionné du Web.</h1>
+                <p class="hero-subtitle">J'aime construire des solutions astucieuses et explorer le potentiel infini du code.</p>
+                <div class="hero-buttons">
+                    <a href="#projets" class="btn-primary">Voir mes Projets</a>
+                    <a href="#contact" class="btn-secondary">Me Contacter</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                </div>
+        </div>
+    </header>
+
+    <section id="apropos" class="section-padding section-alt-bg">
+        <div class="container about-layout">
+            <div class="about-text">
+                <h2 class="section-title">À propos de moi</h2>
+                <p>Mon parcours est guidé par une curiosité insatiable pour la technologie et comment elle peut simplifier nos vies. Je me spécialise dans l'automation, cherchant à créer des systèmes efficaces qui libèrent du temps pour ce qui compte vraiment.</p>
+                <p>Au-delà des lignes de code, j'explore le web et ses cultures, toujours prêt à apprendre et à partager. Ce site est mon espace pour montrer ce que je construis et ce que j'apprends.</p>
+                <a href="#contact" class="btn-primary small-btn">Travaillons ensemble</a>
+            </div>
+            <div class="about-stats">
+                <div class="stat-item">
+                    <h3>3+</h3>
+                    <p>Années d'exploration Web</p>
+                </div>
+                <div class="stat-item">
+                    <h3>20+</h3>
+                    <p>Projets personnels</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="competences" class="section-padding">
+        <div class="container">
+            <h2 class="section-title">Mes Compétences</h2>
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <h3>Automation</h3>
+                    <p>Python, Selenium, APIs, Scripting</p>
+                </div>
+                <div class="skill-item">
+                    <h3>Développement Web</h3>
+                    <p>HTML, CSS, JavaScript (en cours), Git & GitHub</p>
+                </div>
+                <div class="skill-item">
+                    <h3>Outils</h3>
+                    <p>VS Code, Terminal, Canva, Figma (bases)</p>
+                </div>
+                <div class="skill-item">
+                    <h3>Soft Skills</h3>
+                    <p>Résolution de problèmes, Autonomie, Curiosité</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projets" class="section-padding section-alt-bg">
+        <div class="container">
+            <h2 class="section-title">Mes Projets Récents</h2>
+            <div class="projects-grid">
+                
+                <article class="project-card">
+                    <h3>Le Site "Merivan"</h3>
+                    <p class="project-excerpt">Un projet de cours pour une marque de parfums, exploration des bases HTML/CSS.</p>
+                    <a href="https://mathieulelievre8-rgb.github.io/Merivan/" target="_blank" class="project-link">Voir le site →</a>
+                </article>
+
+                <article class="project-card">
+                    <h3>Ce Blog Personnel</h3>
+                    <p class="project-excerpt">Mon espace pour explorer et documenter mon parcours d'apprentissage.</p>
+                    <a href="textes/texte1.html" class="project-link">Lire les textes →</a>
+                </article>
+
+                <article class="project-card">
+                    <h3>Script d'Automation X</h3>
+                    <p class="project-excerpt">Un script Python pour automatiser une tâche répétitive sur le web.</p>
+                    <a href="#" class="project-link">Voir le code (à venir) →</a>
+                </article>
+
+                <article class="project-card">
+                    <h3>Mini-Forum (En cours)</h3>
+                    <p class="project-excerpt">Ma future exploration du backend, des bases de données et du JavaScript.</p>
+                    <a href="#" class="project-link">Suivre l'avancement →</a>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section-padding">
+        <section id="contact" class="section-padding section-alt-bg">
+        <div class="container contact-section-layout">
+            <div class="contact-info">
+                <h2 class="section-title text-left">Envie de discuter ?</h2>
+                <p>Que ce soit pour une opportunité d'automation, un projet web ou simplement échanger des idées, n'hésite pas à me contacter. Je réponds généralement sous 24-48h.</p>
+                <div class="contact-details">
+                    <p><strong>Email:</strong> <a href="mailto:ton.email@exemple.com">ton.email@exemple.com</a></p>
+                    <p><strong>LinkedIn:</strong> <a href="#" target="_blank">Mathieu Lelièvre (à venir)</a></p>
+                </div>
+            </div>
+            <div class="contact-form-container">
+                <form id="contactForm" class="contact-form" action="#" method="POST">
+                    <div class="form-group">
+                        <label for="name">Nom</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="6" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary large-btn">Envoyer</button>
+                    <p id="formMessage" class="form-message"></p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <h4>Mathieu Lelièvre</h4>
+                <p>Développeur en devenir.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="#accueil">Accueil</a></li>
+                    <li><a href="#projets">Projets</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Suivez-moi</h4>
+                <ul>
+                    <li><a href="https://github.com/mathieulelievre8-rgb" target="_blank">GitHub</a></li>
+                    <li><a href="#">LinkedIn (à venir)</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Mathieu Lelièvre. Tous droits réservés.</p>
+        </div>
+    </footer>
+<script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Empêche la page de se recharger
+
+            const formData = new FormData(this);
+            const messageBox = document.getElementById('formMessage');
+            messageBox.textContent = "Envoi en cours...";
+            messageBox.style.visibility = "visible";
+
+            // Envoi vers ton serveur local
+            fetch('http://127.0.0.1:5000/contact', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                messageBox.textContent = "Message bien reçu par le serveur ! (Regarde ton terminal VS Code)";
+                messageBox.className = "form-message success";
+                this.reset();
+            })
+            .catch(error => {
+                messageBox.textContent = "Erreur : Le serveur Python n'est pas allumé.";
+                messageBox.className = "form-message error";
+                console.error('Erreur:', error);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,448 @@
+/* === VARIABLES (Ta nouvelle palette de couleurs chaleureuse) === */
+:root {
+    --primary-color: #4A2C2A;   /* Marron profond, presque bordeaux */
+    --accent-color: #E2703A;    /* Orange brûlé, très chaleureux */
+    --text-color: #333333;      /* Gris foncé classique */
+    --text-light: #666666;      /* Gris moyen */
+    --bg-color: #FDFBF8;        /* Fond blanc cassé/crème */
+    --bg-alt: #F1EFE9;          /* Beige très clair pour alterner les sections */
+    --border-color: #E0DED7;    /* Bordure douce */
+
+    --font-main: 'Inter', sans-serif;
+    --font-serif: 'Lora', serif;
+    --border-radius: 8px;
+}
+
+/* === RESET (Base propre) === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-main);
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    line-height: 1.6;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+a { text-decoration: none; color: inherit; transition: 0.3s ease-in-out; }
+ul { list-style: none; }
+
+h1, h2, h3 {
+    font-family: var(--font-serif);
+    color: var(--primary-color);
+    line-height: 1.2;
+}
+
+h1 { font-size: 3.5rem; }
+h2 { font-size: 2.5rem; }
+h3 { font-size: 1.8rem; }
+
+/* === Boutons === */
+.btn-primary, .btn-secondary {
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    text-align: center;
+    white-space: nowrap; /* Empêche le texte de passer à la ligne */
+}
+
+.btn-primary {
+    background-color: var(--accent-color);
+    color: white !important;
+    border: 2px solid var(--accent-color);
+}
+.btn-primary:hover {
+    background-color: darken(var(--accent-color), 10%); /* Plus foncé au survol */
+    border-color: darken(var(--accent-color), 10%);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--primary-color) !important;
+    border: 2px solid var(--primary-color);
+}
+.btn-secondary:hover {
+    background-color: var(--primary-color);
+    color: white !important;
+}
+
+.btn-contact {
+    background: var(--primary-color);
+    color: white !important;
+    padding: 10px 20px;
+    border-radius: 50px;
+}
+.btn-contact:hover { opacity: 0.9; }
+
+.small-btn { padding: 8px 18px; font-size: 0.9em; }
+.large-btn { padding: 15px 30px; font-size: 1.1em; }
+
+
+/* === NAVBAR === */
+.navbar {
+    background: var(--bg-color);
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Petite ombre sous la nav */
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: var(--primary-color);
+}
+
+.nav-links { display: flex; gap: 30px; }
+.nav-links a { font-weight: 500; color: var(--text-color); }
+.nav-links a:hover { color: var(--accent-color); }
+
+
+/* === HERO SECTION === */
+.hero {
+    padding: 120px 0;
+    background-color: var(--bg-alt);
+    text-align: left; /* Aligné à gauche pour un portfolio */
+}
+
+.hero .container {
+    display: flex;
+    align-items: center;
+    gap: 50px; /* Espace entre le texte et l'image */
+    flex-wrap: wrap; /* Pour le responsive */
+}
+
+.hero-content {
+    flex: 2; /* Prend plus de place que l'image */
+    min-width: 300px;
+}
+
+.hero-image {
+    flex: 1; /* Prend une partie de la place */
+    text-align: center;
+}
+
+.hero-image img {
+    max-width: 100%;
+    border-radius: 50%; /* Photo ronde */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.greeting {
+    font-size: 1.2rem;
+    color: var(--accent-color);
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.hero h1 {
+    font-size: 3.8rem;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+.hero-subtitle {
+    font-size: 1.3rem;
+    color: var(--text-light);
+    margin-bottom: 40px;
+    max-width: 700px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* === GENERAL SECTIONS === */
+.section-padding { padding: 100px 0; }
+.section-alt-bg { background-color: var(--bg-alt); }
+.section-title {
+    text-align: center;
+    margin-bottom: 60px;
+    font-size: 2.8rem;
+    font-family: var(--font-serif);
+    color: var(--primary-color);
+}
+
+/* === ABOUT SECTION === */
+.about-layout {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    flex-wrap: wrap;
+}
+
+.about-text {
+    flex: 3; /* Plus de place pour le texte */
+    min-width: 300px;
+}
+.about-text p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+.about-stats {
+    flex: 1; /* Moins de place pour les stats */
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    text-align: center;
+}
+
+.stat-item h3 {
+    font-size: 3rem;
+    color: var(--accent-color);
+    margin-bottom: 5px;
+}
+.stat-item p {
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+/* === SKILLS SECTION === */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    text-align: center;
+}
+
+.skill-item {
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 30px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.skill-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+}
+.skill-item h3 { margin-bottom: 10px; font-size: 1.5rem; }
+.skill-item p { color: var(--text-light); }
+
+/* === PROJECTS SECTION === */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.project-card {
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 30px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+}
+
+.project-card h3 { font-family: var(--font-serif); font-size: 1.8rem; margin-bottom: 15px; }
+.project-excerpt { color: var(--text-light); margin-bottom: 20px; }
+.project-link { color: var(--accent-color); font-weight: 600; }
+.project-link:hover { text-decoration: underline; }
+
+/* === CONTACT SECTION === */
+.contact-section {
+    text-align: center;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 80px 40px;
+    border-radius: var(--border-radius);
+    margin-top: 50px;
+}
+.contact-section h2 { color: white; margin-bottom: 25px; }
+.contact-text {
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin: 0 auto 40px auto;
+}
+
+/* === FOOTER === */
+footer {
+    background: var(--primary-color);
+    color: #fff;
+    padding: 60px 0 20px 0;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-col h4 { margin-bottom: 20px; font-size: 1.2rem; }
+.footer-col ul li { margin-bottom: 10px; }
+.footer-col a { color: #ccc; }
+.footer-col a:hover { color: white; }
+
+.footer-bottom {
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    padding-top: 20px;
+    color: #aaa;
+    font-size: 0.9rem;
+}
+
+/* === RESPONSIVE DESIGN (pour mobile) === */
+@media (max-width: 768px) {
+    h1 { font-size: 2.5rem; }
+    h2 { font-size: 2rem; }
+    h3 { font-size: 1.5rem; }
+
+    .hero { padding: 80px 0; }
+    .hero .container { flex-direction: column; text-align: center; }
+    .hero-image { order: -1; margin-bottom: 30px; } /* Met l'image au-dessus sur mobile */
+
+    .about-layout { flex-direction: column; }
+    .about-text { text-align: center; }
+    .about-stats { flex-direction: row; justify-content: space-around; }
+
+    .nav-links { display: none; } /* On cache les liens de la nav sur mobile pour simplifier */
+    .nav-container { justify-content: center; } /* Centrer le logo sur mobile */
+
+    .hero-buttons { justify-content: center; }
+}/* === CONTACT SECTION NOUVEAU === */
+.contact-section-layout {
+    display: flex;
+    gap: 60px;
+    align-items: flex-start; /* Alignement en haut */
+    flex-wrap: wrap; /* Pour le responsive */
+}
+
+.contact-info {
+    flex: 1;
+    min-width: 300px;
+}
+.contact-info .section-title {
+    text-align: left; /* Titre aligné à gauche dans cette section */
+    margin-bottom: 25px;
+}
+.contact-info p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+.contact-details p {
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+.contact-details a {
+    color: var(--primary-color);
+    font-weight: 500;
+}
+.contact-details a:hover {
+    color: var(--accent-color);
+    text-decoration: underline;
+}
+
+
+.contact-form-container {
+    flex: 1.5; /* Le formulaire prend plus de place */
+    min-width: 300px;
+    background-color: var(--bg-color);
+    padding: 40px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.contact-form .form-group {
+    margin-bottom: 25px;
+}
+
+.contact-form label {
+    display: block; /* Chaque label sur sa propre ligne */
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--primary-color);
+    font-size: 1.05rem;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+    width: 100%; /* Prend toute la largeur disponible */
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-family: var(--font-main);
+    font-size: 1rem;
+    color: var(--text-color);
+    background-color: var(--bg-alt);
+    transition: border-color 0.3s;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: var(--accent-color);
+    outline: none; /* Enlève la bordure bleue par défaut au focus */
+    box-shadow: 0 0 0 2px rgba(var(--accent-color), 0.2);
+}
+
+.contact-form textarea {
+    resize: vertical; /* Permet à l'utilisateur de redimensionner verticalement */
+}
+
+.contact-form .btn-primary {
+    width: auto; /* Le bouton ne prend pas 100% de la largeur */
+    margin-top: 15px;
+    cursor: pointer; /* Indique que c'est cliquable */
+}
+
+.form-message {
+    margin-top: 20px;
+    font-weight: 500;
+    text-align: center;
+    visibility: hidden; /* Caché par défaut, sera visible avec JS */
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+.form-message.success {
+    color: #28a745; /* Vert pour succès */
+    visibility: visible;
+    opacity: 1;
+}
+.form-message.error {
+    color: #dc3545; /* Rouge pour erreur */
+    visibility: visible;
+    opacity: 1;
+}
+
+/* === RESPONSIVE pour les formulaires === */
+@media (max-width: 768px) {
+    .contact-section-layout {
+        flex-direction: column;
+    }
+    .contact-info .section-title {
+        text-align: center; /* Centrer le titre sur mobile */
+    }
+    .contact-info {
+        text-align: center;
+    }
+    .contact-details {
+        margin-top: 30px;
+    }
+}

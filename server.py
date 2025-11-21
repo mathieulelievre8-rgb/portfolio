@@ -1,26 +1,24 @@
 import os
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from dotenv import load_dotenv
 
+# SendGrid
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
+
 app = Flask(__name__)
 CORS(app) # Sécurité
 
-# --- CONFIGURATION DE TON EMAIL (A REMPLIR) ---
-# C'est l'adresse qui va ENVOYER le mail (le robot)
-SMTP_SERVER = "smtp.gmail.com"
-SMTP_PORT = 587
-SENDER_EMAIL = "mathieulelievre8@gmail.com" 
-load_dotenv()
-# On lit le mot de passe depuis la variable d'environnement `SENDER_PASSWORD`.
-# Ne laisse jamais de secret en dur dans le dépôt.
-SENDER_PASSWORD = os.environ.get("SENDER_PASSWORD")
+# Adresse d'envoi par défaut (modifiable via env `SENDER_EMAIL`)
+SENDER_EMAIL = os.environ.get("SENDER_EMAIL", "mathieulelievre8@gmail.com")
 
-if not SENDER_PASSWORD:
-    print("Warning: SENDER_PASSWORD not set. Define it in your environment or in a local .env file")
+load_dotenv()
+# On lit la clé SendGrid depuis l'environnement
+SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
+
+if not SENDGRID_API_KEY:
+    print("Warning: SENDGRID_API_KEY not set. Define it in your environment or in a local .env file")
 
 @app.route('/contact', methods=['POST'])
 def contact():
@@ -50,19 +48,39 @@ def contact():
     """
     msg.attach(MIMEText(corps_message, 'plain'))
 
-    # 3. Connexion au serveur Gmail et Envoi
+    # 3. Envoi via SendGrid
+    if not SENDGRID_API_KEY:
+        return jsonify({"status": "error", "message": "SENDGRID_API_KEY not configured"}), 500
+
+    subject = f"Nouveau message Portfolio de : {nom}"
+    corps_message = f"""
+Nouveau contact depuis le site !
+
+Nom : {nom}
+Email : {email_visiteur}
+
+Message :
+{message_visiteur}
+"""
+
+    mail = Mail(
+        from_email=SENDER_EMAIL,
+        to_emails=SENDER_EMAIL,
+        subject=subject,
+        plain_text_content=corps_message,
+    )
+
     try:
-        server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
-        server.starttls() # On sécurise la connexion
-        server.login(SENDER_EMAIL, SENDER_PASSWORD)
-        server.send_message(msg)
-        server.quit()
-        
-        print("✅ Email envoyé avec succès !")
-        return jsonify({"status": "success", "message": "Email envoyé !"})
-        
+        client = SendGridAPIClient(SENDGRID_API_KEY)
+        response = client.send(mail)
+        if 200 <= response.status_code < 300:
+            print("✅ Email envoyé avec succès via SendGrid !")
+            return jsonify({"status": "success", "message": "Email envoyé !"})
+        else:
+            print(f"❌ SendGrid error: {response.status_code}")
+            return jsonify({"status": "error", "message": f"SendGrid error {response.status_code}"}), 500
     except Exception as e:
-        print(f"❌ Erreur lors de l'envoi : {e}")
+        print(f"❌ Erreur SendGrid : {e}")
         return jsonify({"status": "error", "message": str(e)}), 500
 
 if __name__ == '__main__':

@@ -119,18 +119,18 @@
     </section>
 
     <section id="contact" class="section-padding">
-        <section id="contact" class="section-padding section-alt-bg">
         <div class="container contact-section-layout">
             <div class="contact-info">
                 <h2 class="section-title text-left">Envie de discuter ?</h2>
                 <p>Que ce soit pour une opportunité d'automation, un projet web ou simplement échanger des idées, n'hésite pas à me contacter. Je réponds généralement sous 24-48h.</p>
                 <div class="contact-details">
-                    <p><strong>Email:</strong> <a href="mailto:ton.email@exemple.com">ton.email@exemple.com</a></p>
+                    <p><strong>Email:</strong> <a href="mailto:mathieu.lelievre@exemple.com">mathieu.lelievre@exemple.com</a></p>
                     <p><strong>LinkedIn:</strong> <a href="#" target="_blank">Mathieu Lelièvre (à venir)</a></p>
                 </div>
             </div>
+            
             <div class="contact-form-container">
-                <form id="contactForm" class="contact-form" action="#" method="POST">
+                <form id="contactForm" class="contact-form">
                     <div class="form-group">
                         <label for="name">Nom</label>
                         <input type="text" id="name" name="name" required>
@@ -176,32 +176,36 @@
             <p>&copy; 2025 Mathieu Lelièvre. Tous droits réservés.</p>
         </div>
     </footer>
-<script>
+
+    <script>
         document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // Empêche la page de se recharger
+            e.preventDefault(); // Empêche le rechargement de la page
 
             const formData = new FormData(this);
             const messageBox = document.getElementById('formMessage');
+            
             messageBox.textContent = "Envoi en cours...";
             messageBox.style.visibility = "visible";
+            messageBox.className = "form-message";
 
-            // Envoi vers ton serveur local
-           fetch('https://portfolio-5x72.onrender.com/contact', {
+            // Envoi vers ton serveur Render
+            fetch('https://portfolio-5x72.onrender.com/contact', {
                 method: 'POST',
                 body: formData
             })
             .then(response => response.json())
             .then(data => {
-                messageBox.textContent = "Message bien reçu par le serveur ! (Regarde ton terminal VS Code)";
+                messageBox.textContent = "Message bien reçu ! (Vérifie ta boîte mail)";
                 messageBox.className = "form-message success";
-                this.reset();
+                this.reset(); // Vide le formulaire
             })
             .catch(error => {
-                messageBox.textContent = "Erreur : Le serveur Python n'est pas allumé.";
+                messageBox.textContent = "Erreur : Le serveur ne répond pas.";
                 messageBox.className = "form-message error";
                 console.error('Erreur:', error);
             });
-        ;
+        });
     </script>
+
 </body>
 </html>

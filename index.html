@@ -186,7 +186,7 @@
             messageBox.style.visibility = "visible";
 
             // Envoi vers ton serveur local
-            fetch('fetch('https://portfolio-5x72.onrender.com/contact', ...)/contact', {
+           fetch('https://portfolio-5x72.onrender.com/contact', {
                 method: 'POST',
                 body: formData
             })
@@ -201,7 +201,7 @@
                 messageBox.className = "form-message error";
                 console.error('Erreur:', error);
             });
-        });
+        ;
     </script>
 </body>
 </html>

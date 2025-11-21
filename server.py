@@ -12,7 +12,7 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 # Configuration SMTP (Identique)
 SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 587
-SENDER_EMAIL = "ton.adresse.perso@gmail.com" 
+SENDER_EMAIL = "mathieulelievre8@gmail.com" 
 SENDER_PASSWORD = os.environ.get('MY_EMAIL_PASSWORD')
 
 @app.route('/contact', methods=['POST'])

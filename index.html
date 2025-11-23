@@ -118,6 +118,23 @@
         </div>
     </section>
 
+    <section id="forum" class="section-padding">
+        <div class="container">
+            <h2 class="section-title">Micro-Forum (Bêta)</h2>
+            <p style="text-align: center; margin-bottom: 30px;">Un espace de discussion géré par mon backend Python.</p>
+
+            <div class="forum-input" style="max-width: 600px; margin: 0 auto 40px auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                <input type="text" id="pseudo" placeholder="Votre pseudo" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                <textarea id="msgForum" placeholder="Votre message..." rows="3" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px;"></textarea>
+                <button onclick="posterMessage()" class="btn-primary small-btn">Publier</button>
+            </div>
+
+            <div id="listeMessages" style="max-width: 600px; margin: 0 auto;">
+                <p>Chargement des messages...</p>
+            </div>
+        </div>
+    </section>
+
     <section id="contact" class="section-padding">
         <div class="container contact-section-layout">
             <div class="contact-info">
@@ -177,6 +194,58 @@
             <p>&copy; 2025 Mathieu Lelièvre. Tous droits réservés.</p>
         </div>
     </footer>
+    <script>
+        const API_URL = "https://portfolio-5x72.onrender.com/api/messages"; // Ton URL Render
+
+        // 1. Fonction pour charger les messages
+        async function chargerMessages() {
+            try {
+                const response = await fetch(API_URL);
+                const messages = await response.json();
+                
+                const divListe = document.getElementById('listeMessages');
+                divListe.innerHTML = ""; // On vide la liste
+
+                // On crée une "carte" pour chaque message
+                messages.reverse().forEach(msg => { // reverse() pour voir les nouveaux en haut
+                    divListe.innerHTML += `
+                        <div style="background: white; padding: 15px; margin-bottom: 10px; border-radius: 8px; border-left: 4px solid #E2703A; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                            <strong style="color: #4A2C2A;">${msg.auteur}</strong> : 
+                            <span style="color: #333;">${msg.texte}</span>
+                        </div>
+                    `;
+                });
+            } catch (error) {
+                console.error("Erreur chargement:", error);
+            }
+        }
+
+        // 2. Fonction pour poster un message
+        async function posterMessage() {
+            const pseudo = document.getElementById('pseudo').value;
+            const texte = document.getElementById('msgForum').value;
+
+            if(!pseudo || !texte) return alert("Remplissez tout !");
+
+            try {
+                await fetch(API_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ auteur: pseudo, texte: texte })
+                });
+                
+                // On vide les champs et on recharge la liste
+                document.getElementById('msgForum').value = "";
+                chargerMessages(); 
+
+            } catch (error) {
+                alert("Erreur lors de l'envoi");
+            }
+        }
+
+        // On charge les messages dès le début
+        chargerMessages();
+    </script>
 
 </body>
 </html>

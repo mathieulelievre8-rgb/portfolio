@@ -1,51 +1,39 @@
 import os
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
 app = Flask(__name__)
+# On autorise ton site GitHub à parler à ce cerveau
 CORS(app, resources={r"/*": {"origins": "*"}})
 
-# --- CHANGEMENT ICI : PORT 465 ---
-SMTP_SERVER = "smtp.gmail.com"
-SMTP_PORT = 465  # On passe sur le port sécurisé SSL direct
-SENDER_EMAIL = "mathieulelievre8@gmail.com" # <--- VÉRIFIE QUE C'EST BIEN TON EMAIL ICI
-SENDER_PASSWORD = os.environ.get('MY_EMAIL_PASSWORD')
+# --- LA MÉMOIRE (Temporaire) ---
+# Une simple liste pour stocker les messages. 
+# Attention : si Render redémarre, ça s'efface (on verra les bases de données plus tard).
+messages = [
+    {"auteur": "Mathieu", "texte": "Bienvenue sur mon micro-forum !"},
+    {"auteur": "Bot", "texte": "Le serveur est en ligne 🟢"}
+]
 
-@app.route('/contact', methods=['POST'])
-def contact():
-    data = request.form
-    nom = data.get('name')
-    email_visiteur = data.get('email')
-    message_visiteur = data.get('message')
+# --- ROUTE 1 : RÉCUPÉRER LES MESSAGES (GET) ---
+@app.route('/api/messages', methods=['GET'])
+def get_messages():
+    return jsonify(messages)
 
-    msg = MIMEMultipart()
-    msg['From'] = SENDER_EMAIL
-    msg['To'] = SENDER_EMAIL
-    msg['Subject'] = f"Portfolio Contact : {nom}"
+# --- ROUTE 2 : AJOUTER UN MESSAGE (POST) ---
+@app.route('/api/messages', methods=['POST'])
+def add_message():
+    data = request.json # On reçoit du JSON cette fois
+    auteur = data.get('auteur')
+    texte = data.get('texte')
 
-    corps_message = f"Nom: {nom}\nEmail: {email_visiteur}\nMessage:\n{message_visiteur}"
-    msg.attach(MIMEText(corps_message, 'plain'))
+    if not auteur or not texte:
+        return jsonify({"error": "Données incomplètes"}), 400
 
-    try:
-        if not SENDER_PASSWORD:
-            return jsonify({"status": "error", "message": "Erreur config mot de passe"}), 500
-
-        # --- CHANGEMENT ICI : SMTP_SSL et suppression de starttls ---
-        server = smtplib.SMTP_SSL(SMTP_SERVER, SMTP_PORT)
-        # server.starttls()  <-- ON A SUPPRIMÉ CETTE LIGNE, ELLE CASSE TOUT EN SSL
-        
-        server.login(SENDER_EMAIL, SENDER_PASSWORD)
-        server.send_message(msg)
-        server.quit()
-        
-        return jsonify({"status": "success", "message": "Email envoyé avec succès."})
-        
-    except Exception as e:
-        print(f"Erreur SMTP : {e}")
-        return jsonify({"status": "error", "message": str(e)}), 500
+    # On ajoute le message à la liste
+    nouveau_message = {"auteur": auteur, "texte": texte}
+    messages.append(nouveau_message)
+    
+    return jsonify({"success": True, "message": "Ajouté !"})
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

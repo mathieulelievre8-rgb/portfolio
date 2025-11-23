@@ -1,39 +1,45 @@
 import os
+import uuid
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
 app = Flask(__name__)
-# On autorise ton site GitHub à parler à ce cerveau
+# Autorise tout le monde (CORS)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
-# --- LA MÉMOIRE (Temporaire) ---
-# Une simple liste pour stocker les messages. 
-# Attention : si Render redémarre, ça s'efface (on verra les bases de données plus tard).
+# --- MÉMOIRE TEMPORAIRE ---
 messages = [
-    {"auteur": "Mathieu", "texte": "Bienvenue sur mon micro-forum !"},
-    {"auteur": "Bot", "texte": "Le serveur est en ligne 🟢"}
+    {"id": "1", "auteur": "System", "texte": "Initialisation du protocole de discussion... 🟢"},
+    {"id": "2", "auteur": "Admin", "texte": "Bienvenue sur le terminal."}
 ]
 
-# --- ROUTE 1 : RÉCUPÉRER LES MESSAGES (GET) ---
+# --- ROUTES API ---
 @app.route('/api/messages', methods=['GET'])
 def get_messages():
     return jsonify(messages)
 
-# --- ROUTE 2 : AJOUTER UN MESSAGE (POST) ---
 @app.route('/api/messages', methods=['POST'])
 def add_message():
-    data = request.json # On reçoit du JSON cette fois
+    data = request.json
     auteur = data.get('auteur')
     texte = data.get('texte')
 
     if not auteur or not texte:
-        return jsonify({"error": "Données incomplètes"}), 400
+        return jsonify({"error": "Données manquantes"}), 400
 
-    # On ajoute le message à la liste
-    nouveau_message = {"auteur": auteur, "texte": texte}
+    nouveau_message = {
+        "id": str(uuid.uuid4()), 
+        "auteur": auteur, 
+        "texte": texte
+    }
     messages.append(nouveau_message)
-    
-    return jsonify({"success": True, "message": "Ajouté !"})
+    return jsonify({"success": True, "message": "Donnée injectée !"})
+
+@app.route('/api/messages/<msg_id>', methods=['DELETE'])
+def delete_message(msg_id):
+    global messages
+    messages = [msg for msg in messages if msg['id'] != msg_id]
+    return jsonify({"success": True, "message": "Donnée purgée !"})
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
